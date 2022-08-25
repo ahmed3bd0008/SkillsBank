@@ -1,0 +1,48 @@
+﻿
+<style>
+    header a{
+        text-decoration:none !important;
+        color:white;
+    }
+    header a:hover, header h3 {
+        color: white;
+    }
+    .iconSize{
+        font-size:20px;
+    }
+    header {
+        background: url("/images/bar_background.png") no-repeat !important;
+        background-size:100% !important; /* image fill header background */    
+        background-position:center !important; /* Appeared part of image in background */
+        opacity: 1 !important;
+    }
+</style>
+<header class="p-2">
+    <div class="container-fluid">
+        <div class="row">
+            <h3 class="col-1">SkillsBank</h3>
+            <div class="col-3">
+                <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Search courses" aria-label="Search courses" aria-describedby="basic-addon2">
+                    <span class="input-group-text bg-info" id="basic-addon2">
+                        <i class="fa-solid fa-magnifying-glass text-light"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-8 row justify-content-end">
+                <a asp-action="Index" asp-controller="Home" class="col-1 "> <i class="iconSize   ml-2 fa-solid fa-house"></i><br />Home</a>
+                <a asp-action="Index" asp-controller="Course" class="col-1 "> <i class="iconSize ml-2 fa-solid fa-building-columns"></i><br />Courses </a>
+                <a asp-action="Index" asp-controller="" class="col-1"> <i class="iconSize ml-4 fa-solid fa-maximize"></i>Connection </a>
+                <a asp-action="Index" asp-controller="" class="col-1"> <i class="iconSize ml-4 fa-regular fa-bell"></i><br />Notifications </a>
+                <a asp-action="Index" asp-controller="" class="col-1"> <i class="iconSize ml-3 fa-solid fa-chart-column"></i><br />Dashboard </a>
+                <a asp-action="Index" asp-controller="" class="col-1"> <i class="iconSize ml-1 fa-regular fa-user"></i><br />Me</a>
+            </div>
+        </div>
+        
+    </div>
+</header>
+    
+
+
+
