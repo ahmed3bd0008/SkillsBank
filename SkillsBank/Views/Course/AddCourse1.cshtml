@@ -1,0 +1,281 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "AddCourse";
+
+    /* select lists */
+    SelectList categories = new SelectList(ViewBag.categories, "Id", "categoryName");
+    SelectList languages = new SelectList(ViewBag.languages, "Id", "LangName");
+    SelectList skills = new SelectList(ViewBag.skills, "Id", "skillName");
+    SelectList crsTypes = new SelectList(ViewBag.crsType, "Id", "typeValue");
+    SelectList status = new SelectList(ViewBag.Status, "Id", "statusName");
+    SelectList levels = new SelectList(ViewBag.levels, "Id", "levelName");
+    SelectList currencies = new SelectList(ViewBag.currency, "Id", "currencyName");
+
+}
+
+<style>
+
+</style>
+<div id="formContainer">
+    <div id="carouselExampleIndicators" class="carousel slide" data-interval="false">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                @*<form id="firstForm">
+
+                </form>*@
+                <div class="m-3 border-secondary">
+                    <div class="row">
+                        <div class="col-7">
+                            <h1>Add Course</h1>
+                        </div>
+                        <div class="col-5">
+                            <img src="~/images/course_image.png" width="300" height="100" class="col-4 m-1" alt="Photo" /><br />
+                            <input type="button" value="Add Course Photo" class="ml-5 btn btn-info" />
+                        </div>
+                    </div>
+
+                    <h3>Course information</h3>
+                    <hr />
+                    <div class="p-2">
+                        <div class="mt-3">
+                            <label asp-for="name"></label>:<span style="color:red"> *</span>
+                            <input type="text" asp-for="name" class="form-control" />
+                            <span style="color:red" asp-validation-for="name"></span>
+                        </div>
+                        <div class="mt-3">
+                            <label asp-for="CrsPromoLink"></label>:
+                            <div>
+                                <input type="text" asp-for="CrsPromoLink" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label asp-for="categoryFK"></label>:<span style="color:red"> *</span>
+                                <select asp-for="categoryFK" class="form-control" asp-items="@categories">
+                                    <option value="" disabled selected hidden>--Select Category--</option>
+                                </select>
+                                <span style="color:red" asp-validation-for="categoryFK"></span>
+
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="duration"></label>:
+                                <input type="number" asp-for="duration" class="form-control" placeholder=" 00 /Hour" />
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="crsTypeFK"></label>:
+                                <select asp-for="crsTypeFK" class="form-control" asp-items="@crsTypes">
+                                    <option value="" disabled selected hidden>--Select Course Type--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label asp-for="Price"></label>:
+                                <input asp-for="Price" type="number" class="form-control" />
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="currencyFK"></label>:
+                                <select asp-for="currencyFK" class="form-control" asp-items="@currencies">
+                                    <option value="" disabled selected hidden>--Select Currency--</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="languageFK"></label>:
+                                <select asp-for="languageFK" class="form-control" asp-items="@languages">
+                                    <option value="" disabled selected hidden>--Select Language--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <label asp-for="VideoTranscript"></label>:
+                                <input value="Upload File" type="button" asp-for="VideoTranscript" class="btn btn-info form-control " />
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="crsStatusFK"></label>:<span style="color:red"> *</span>
+                                <select asp-for="crsStatusFK" class="form-control" asp-items="@status">
+                                    <option value="" disabled selected hidden>--Select Status--</option>
+                                </select>
+                                <span style="color:red" asp-validation-for="crsStatusFK"></span>
+
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="crsLevelFK"></label>:
+                                <select asp-for="crsLevelFK" class="form-control" asp-items="@levels">
+                                    <option value="" disabled selected hidden>--Select Level--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 d-flex justify-content-end formBtnsPart">
+                            <input type="button" value="Next" onclick="CheckValidform1()" class="btn btn-info m-2 " data-target="#carouselExampleIndicators" data-slide="next" />
+                            <input type="button" value="Cancel" class="btn btn-info m-2" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="carousel-item align-items-center">
+
+                <div class="m-3 border-secondary" id="formPart">
+                    <div>
+                        <label asp-for="description"></label>:
+                        <textarea class="form-control" asp-for="description" rows="4"></textarea>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="CrsRequirement"></label>:
+                        <input asp-for="CrsRequirement" class="m-2 form-control" />
+                        <div id="RequiredItem" class="m-4">
+                            
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="crsSkills"></label>:<span style="color:red"> *</span>
+                        <select  class="form-control" id="skillsSelect" asp-items="@skills" onchange="SelectedSkill(this)">
+                            <option value="0" disabled selected hidden>--Select skill--</option>
+                        </select>
+                        <span style="color:red" asp-validation-for="crsSkills"></span>
+                        <div id="skillsList" class="m-4" ondblclick="UnSelectOption(event)"></div>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="CrsRequirement"></label>:
+                        <input asp-for="CrsRequirement" class="form-control" />
+                        <span style="color:red" asp-validation-for="CrsRequirement"></span>
+                        <span id=""></span>
+                    </div>
+
+                    <div class="mt-4 d-flex justify-content-end formBtnsPart">
+                        <input type="button" value="Prev" class="btn btn-info m-2 " data-target="#carouselExampleIndicators" data-slide="prev" />
+                        <input type="button" value="Next" class="btn btn-info m-2" data-target="#carouselExampleIndicators" data-slide="next" />
+                        <input type="button" value="Cancel" class="btn btn-info m-2"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="carousel-item" >
+
+                <div class="m-3 border-secondary">
+                    <div>
+                        <label asp-for="CrsReferenceText"></label>:<span style="color:red"> *</span>
+                        <textarea class="form-control" asp-for="CrsReferenceText" rows="4"></textarea>
+                        <span style="color:red" asp-validation-for="CrsReferenceText"></span>
+
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="CrsReferenceLink"></label>:
+                        <div>
+                            <input type="text" asp-for="CrsReferenceLink" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="CertAvailable"></label>:
+                        <input type="checkbox" asp-for="CertAvailable" />
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label asp-for="startDate"></label>:<span style="color:red"> *</span>
+                            <input type="date" asp-for="startDate" class="form-control" placeholder="day  / month / year" />
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="endDate"></label>:<span style="color:red"> *</span>
+                            <input type="date" asp-for="endDate" class="form-control" placeholder="day  / month / year" />
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="ApplicationDueDate"></label>:
+                            <input type="date" asp-for="ApplicationDueDate" class="form-control" placeholder="day  / month / year" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label asp-for="TotalHours"></label>:
+                            <input type="number" asp-for="TotalHours" class="form-control" placeholder="00 /Hour" />
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="Sessions"></label>:
+                            <input type="number" asp-for="Sessions" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="CrsReleasedDate"></label>:
+                            <input type="date" asp-for="CrsReleasedDate" class="form-control" placeholder="day  / month / year" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label asp-for="minStudents"></label>:
+                            <input type="number" asp-for="minStudents" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="maxStudents"></label>:
+                            <input type="number" asp-for="maxStudents" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label asp-for="DiscountPercent"></label>:
+                            <input type="date" asp-for="DiscountPercent" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="CrsReleasedDate"></label>:
+                            <input type="date" asp-for="CrsReleasedDate" class="form-control" placeholder="day  / month / year" />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label asp-for="SearchTags"></label>:
+                        <input type="text" asp-for="SearchTags" class="form-control" />
+                    </div>
+                    <div class="mt-4 d-flex justify-content-end">
+                        <input type="button" value="Prev" class="btn btn-info m-2 " data-target="#carouselExampleIndicators" data-slide="prev" />
+                        <input type="button" value="Save" class="btn btn-info m-2" />
+                        <input type="button" value="Cancel" class="btn btn-info m-2" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{ 
+<script>
+    function CheckValidform1() {
+        //document.getElementById("name").oninvalid(() => {
+        //    document.getElementById("name").style.borderColor = "red";
+        //});
+
+    }
+
+    function SelectedSkill(item) {
+        var skill = item.options[item.selectedIndex];
+        skill.style.display = "none";
+        document.getElementById("skillsList").innerHTML += '<span class="m-2 p-2 SelectedOption rounded-pill bg-secondary" id="' + skill.value + '" onmouseover="UnSelectOption(event)"  onclick="DelSkillFunc(event)" onmouseleave="UndoDelOption(event)" >' + skill.text + '<i class="fa-solid fa-xmark m-1"></i></span>';
+        item.selectedIndex = 0;
+    }
+    
+    function UnSelectOption(event) {
+       
+        document.getElementById(event.target.id).classList.replace("bg-secondary", "bg-danger");
+
+    }
+
+    function UndoDelOption(event) {
+        document.getElementById(event.target.id).classList.replace("bg-danger", "bg-secondary");
+
+    }
+
+    function DelSkillFunc(event) {
+        document.getElementById("skillsSelect").options[event.target.id].style.display = "block";
+        document.getElementById(event.target.id).remove();
+    }
+
+</script>
+
+}
